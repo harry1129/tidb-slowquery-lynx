@@ -5,6 +5,7 @@ import (
 	"fmt"
 	"log"
 	"os"
+	"reflect"
 	"strings"
 	"time"
 
@@ -35,7 +36,6 @@ type slowlogDigest struct {
 }
 
 func InitDB() {
-
 	dsn := fmt.Sprintf("%s:%s@tcp(%s:%d)/%s?charset=utf8mb4&parseTime=True&loc=Local&timeout=5s&writeTimeout=3m&readTimeout=10m", config.C.Database.User, config.C.Database.Password, config.C.Database.Host, config.C.Database.Port, config.C.Database.DBName)
 	//fmt.Println(dsn)
 	pool, err := sql.Open("mysql", dsn)
@@ -121,36 +121,17 @@ func GetSlowlogDigest(dbname string, st time.Time, et time.Time) (*[]*slowlogDig
 	return &slowlogDigests, nil
 }
 
-func SaveSlowlog(slowLogs *[]*model.AllClusterSlowQuery) error {
-	if slowLogs == nil {
+func Save[T any](data *[]T, chunkSize int) error {
+	if data == nil {
 		return nil
 	}
-	chunkSize := 500
-	for i := 0; i < len(*slowLogs); i += chunkSize {
+	for i := 0; i < len(*data); i += chunkSize {
 		end := i + chunkSize
-		if end > len(*slowLogs) {
-			end = len(*slowLogs)
+		if end > len(*data) {
+			end = len(*data)
 		}
-		if err := db.Create((*slowLogs)[i:end]).Error; err != nil {
-			fmt.Printf("[ERROR] Error saving slow logs: %v", err)
-			return err
-		}
-	}
-	return nil
-}
-
-func SaveSlowlogQuery(slowLogQuerys *[]*model.AllClusterSlowQueryInfo) error {
-	if slowLogQuerys == nil {
-		return nil
-	}
-	chunkSize := 100
-	for i := 0; i < len(*slowLogQuerys); i += chunkSize {
-		end := i + chunkSize
-		if end > len(*slowLogQuerys) {
-			end = len(*slowLogQuerys)
-		}
-		if err := db.Create((*slowLogQuerys)[i:end]).Error; err != nil {
-			fmt.Printf("[ERROR] Error saving slow log querys: %v", err)
+		if err := db.Create((*data)[i:end]).Error; err != nil {
+			fmt.Printf("[ERROR] Error saving %v ,err is %v", reflect.TypeOf(*data).Elem(), err)
 			return err
 		}
 	}

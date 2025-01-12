@@ -2,6 +2,8 @@ package main
 
 import (
 	"fmt"
+	"net/http"
+	_ "net/http/pprof"
 	"os"
 	"tidb-slowquery-lynx/collector"
 	"tidb-slowquery-lynx/config"
@@ -9,6 +11,10 @@ import (
 )
 
 func main() {
+	go func() {
+		http.ListenAndServe("0.0.0.0:8080", nil)
+	}()
+
 	if len(os.Args) < 2 {
 		fmt.Println("Usage: program <configFilePath>")
 		os.Exit(1)
@@ -28,7 +34,8 @@ func main() {
 			fmt.Printf("[ERROR] will skip %v\n", tdbname)
 			continue
 		}
-		collector.SaveSlowlog(slowlogs)
+		collector.Save(slowlogs, 100)
+		//collector.SaveSlowlog(slowlogs)
 		SlowlogDigests, err := collector.GetSlowlogDigest(tdbname, st, et)
 		if err != nil {
 			fmt.Printf("[ERROR] getslowlogdigest error:%v\n", err)
@@ -47,9 +54,9 @@ func main() {
 		if len(*SlowlogDigests) == 0 {
 			continue
 		}
-		collector.SaveSlowlogQuery(SlowlogQuerys)
+		collector.Save(SlowlogQuerys, 100)
 	}
-
+	time.Sleep(600 * time.Second)
 }
 
 func getPreviousWindowTimes(windowSize time.Duration) (startTime time.Time, endTime time.Time) {

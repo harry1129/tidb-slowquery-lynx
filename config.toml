@@ -1,6 +1,6 @@
 # config.toml
 [global]
-time_window_minutes = 3000  #采集窗口，单位（分钟），建议设置 30 ～ 60，与定时任务配置同样窗口，窗口会自动
+time_window_minutes = 6000  #采集窗口，单位（分钟），建议设置 30 ～ 60，与定时任务配置同样窗口，窗口会自动
 
 #后端存储库
 [database]
