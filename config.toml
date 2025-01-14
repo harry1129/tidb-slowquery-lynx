@@ -16,19 +16,22 @@ conn_max_lifetime = 600    #单位（秒）
 [target_dbs]
 db1.host = "10.2.103.78"
 db1.port = 4700
-db1.user = "root"
+db1.user = "root1"
 db1.password = ""
-db1.db_name = "test"
 
 db2.host = "10.2.103.78"
 db2.port = 4700
 db2.user = "root"
 db2.password = ""
-db2.db_name = "test"
 
 
 db3.host = "10.2.103.78"
 db3.port = 4700
 db3.user = "root"
 db3.password = ""
-db3.db_name = "test"
+
+
+# db4.host = "localhost"
+# db4.port = 4000
+# db4.user = "root"
+# db4.password = ""

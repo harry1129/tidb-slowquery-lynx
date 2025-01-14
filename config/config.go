@@ -26,7 +26,6 @@ type Config struct {
 		Port     int    `toml:"port"`
 		User     string `toml:"user"`
 		Password string `toml:"password"`
-		DBName   string `toml:"db_name"`
 	} `toml:"target_dbs"`
 }
 

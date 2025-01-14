@@ -10,7 +10,7 @@
             "request": "launch",
             "mode": "auto",
             "program": "${fileDirname}",
-            "args": ["/Users/renminghao/Desktop/pingcap/tidb-slowquery-lynx/config.toml"]
+            "args": ["-c","/Users/renminghao/Desktop/pingcap/tidb-slowquery-lynx/config.toml","-l","/Users/renminghao/Desktop/pingcap/tidb-slowquery-lynx/collect.log"]
         }
     ]
 }
