@@ -17,12 +17,14 @@ import (
 
 var (
 	Q                       = new(Query)
+	AllCluster              *allCluster
 	AllClusterSlowQuery     *allClusterSlowQuery
 	AllClusterSlowQueryInfo *allClusterSlowQueryInfo
 )
 
 func SetDefault(db *gorm.DB, opts ...gen.DOOption) {
 	*Q = *Use(db, opts...)
+	AllCluster = &Q.AllCluster
 	AllClusterSlowQuery = &Q.AllClusterSlowQuery
 	AllClusterSlowQueryInfo = &Q.AllClusterSlowQueryInfo
 }
@@ -30,6 +32,7 @@ func SetDefault(db *gorm.DB, opts ...gen.DOOption) {
 func Use(db *gorm.DB, opts ...gen.DOOption) *Query {
 	return &Query{
 		db:                      db,
+		AllCluster:              newAllCluster(db, opts...),
 		AllClusterSlowQuery:     newAllClusterSlowQuery(db, opts...),
 		AllClusterSlowQueryInfo: newAllClusterSlowQueryInfo(db, opts...),
 	}
@@ -38,6 +41,7 @@ func Use(db *gorm.DB, opts ...gen.DOOption) *Query {
 type Query struct {
 	db *gorm.DB
 
+	AllCluster              allCluster
 	AllClusterSlowQuery     allClusterSlowQuery
 	AllClusterSlowQueryInfo allClusterSlowQueryInfo
 }
@@ -47,6 +51,7 @@ func (q *Query) Available() bool { return q.db != nil }
 func (q *Query) clone(db *gorm.DB) *Query {
 	return &Query{
 		db:                      db,
+		AllCluster:              q.AllCluster.clone(db),
 		AllClusterSlowQuery:     q.AllClusterSlowQuery.clone(db),
 		AllClusterSlowQueryInfo: q.AllClusterSlowQueryInfo.clone(db),
 	}
@@ -63,18 +68,21 @@ func (q *Query) WriteDB() *Query {
 func (q *Query) ReplaceDB(db *gorm.DB) *Query {
 	return &Query{
 		db:                      db,
+		AllCluster:              q.AllCluster.replaceDB(db),
 		AllClusterSlowQuery:     q.AllClusterSlowQuery.replaceDB(db),
 		AllClusterSlowQueryInfo: q.AllClusterSlowQueryInfo.replaceDB(db),
 	}
 }
 
 type queryCtx struct {
+	AllCluster              IAllClusterDo
 	AllClusterSlowQuery     IAllClusterSlowQueryDo
 	AllClusterSlowQueryInfo IAllClusterSlowQueryInfoDo
 }
 
 func (q *Query) WithContext(ctx context.Context) *queryCtx {
 	return &queryCtx{
+		AllCluster:              q.AllCluster.WithContext(ctx),
 		AllClusterSlowQuery:     q.AllClusterSlowQuery.WithContext(ctx),
 		AllClusterSlowQueryInfo: q.AllClusterSlowQueryInfo.WithContext(ctx),
 	}

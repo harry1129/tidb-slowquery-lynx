@@ -4,6 +4,8 @@ go 1.22.1
 
 require gorm.io/driver/mysql v1.5.7
 
+require go.uber.org/multierr v1.10.0 // indirect
+
 require (
 	golang.org/x/mod v0.17.0 // indirect
 	golang.org/x/sync v0.10.0 // indirect
@@ -19,6 +21,8 @@ require (
 	github.com/go-sql-driver/mysql v1.7.0 // indirect
 	github.com/jinzhu/inflection v1.0.0 // indirect
 	github.com/jinzhu/now v1.1.5 // indirect
+	github.com/things-go/gormzap v0.0.10
+	go.uber.org/zap v1.27.0
 	gorm.io/gen v0.3.26
 	gorm.io/gorm v1.25.12
 )

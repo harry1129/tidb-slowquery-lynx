@@ -29,7 +29,7 @@ func main() {
 		// 模型结构体字段的数字类型的符号表示是否与表字段的一致, `false`指示都用有符号类型
 		FieldSignable: false, // detect integer field's unsigned type, adjust generated data type
 		// 生成 gorm 标签的字段索引属性
-		FieldWithIndexTag: false, // generate with gorm index tag
+		FieldWithIndexTag: true, // generate with gorm index tag
 		// 生成 gorm 标签的字段类型属性
 		FieldWithTypeTag: true, // generate with gorm column type tag
 	}

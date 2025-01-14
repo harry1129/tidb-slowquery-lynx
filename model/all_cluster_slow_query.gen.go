@@ -12,11 +12,11 @@ const TableNameAllClusterSlowQuery = "all_cluster_slow_query"
 
 // AllClusterSlowQuery mapped from table <all_cluster_slow_query>
 type AllClusterSlowQuery struct {
-	Cluster                   *string    `gorm:"column:Cluster;type:varchar(64)" json:"Cluster"`
+	Cluster                   *string    `gorm:"column:Cluster;type:varchar(64);index:idx_1,priority:1" json:"Cluster"`
 	SAMPLESTARTTIME           *time.Time `gorm:"column:SAMPLE_START_TIME;type:datetime" json:"SAMPLE_START_TIME"`
 	SAMPLEENDTIME             *time.Time `gorm:"column:SAMPLE_END_TIME;type:datetime" json:"SAMPLE_END_TIME"`
 	INSTANCE                  *string    `gorm:"column:INSTANCE;type:varchar(64)" json:"INSTANCE"`
-	Time                      time.Time  `gorm:"column:Time;type:datetime(6);not null" json:"Time"`
+	Time                      time.Time  `gorm:"column:Time;type:datetime(6);not null;index:idx_1,priority:2" json:"Time"`
 	TxnStartTs                *uint64    `gorm:"column:Txn_start_ts;type:bigint unsigned" json:"Txn_start_ts"`
 	User                      *string    `gorm:"column:User;type:varchar(64)" json:"User"`
 	Host                      *string    `gorm:"column:Host;type:varchar(64)" json:"Host"`
