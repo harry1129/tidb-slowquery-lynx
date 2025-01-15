@@ -66,6 +66,7 @@ func main() {
 		mylogger.Info("Complete collect slowlog", zap.String("database", tdbname), zap.String("time", time.Since(start).String()))
 
 	}
+	mylogger.Info("Lynx has completed. Goodbye!")
 }
 
 func getPreviousWindowTimes(windowSize time.Duration) (startTime time.Time, endTime time.Time) {

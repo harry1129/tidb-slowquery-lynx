@@ -94,8 +94,9 @@ func CollectClusterinfo(tdbname string, tdb *gorm.DB) {
 
 func CollectSlowlog(tdbname string, tdb *gorm.DB, st time.Time, et time.Time) error {
 	ch := make(chan interface{}, 2)
-	defer close(ch)
 	var wg sync.WaitGroup
+	defer wg.Wait()
+	defer close(ch)
 	for i := 0; i < 4; i++ {
 		wg.Add(1)
 		go saveDataCh(ch, &wg)
@@ -104,17 +105,14 @@ func CollectSlowlog(tdbname string, tdb *gorm.DB, st time.Time, et time.Time) er
 	if err != nil {
 		return err
 	}
-	close(ch)
-	wg.Wait()
 	return nil
 }
 
 func CollectSlowlogQuery(tdbname string, tdb *gorm.DB, st time.Time, et time.Time) error {
-
 	ch := make(chan interface{}, 2)
-	defer close(ch)
 	var wg sync.WaitGroup
-
+	defer wg.Wait()
+	defer close(ch)
 	for i := 0; i < 4; i++ {
 		wg.Add(1)
 		go saveDataCh(ch, &wg)
@@ -130,8 +128,6 @@ func CollectSlowlogQuery(tdbname string, tdb *gorm.DB, st time.Time, et time.Tim
 	if err != nil {
 		return err
 	}
-	close(ch)
-	wg.Wait()
 	return nil
 }
 
