@@ -1,6 +1,5 @@
-# config.toml
 [global]
-time_window_minutes = 60  #采集窗口，单位（分钟），建议设置 30 ～ 60，与定时任务配置同样窗口，窗口会自动
+time_window_minutes = 60  #采集窗口，单位（分钟），建议设置 30 ～ 60，与定时任务配置同样窗口
 
 #后端存储库
 [database]
@@ -13,25 +12,20 @@ max_idle_conns = 2
 max_open_conns = 10
 conn_max_lifetime = 600    #单位（秒）
 
+#采集目标库
 [target_dbs]
-db1.host = "10.2.103.78"
-db1.port = 4700
-db1.user = "root1"
-db1.password = ""
+cluster1.host = "196.128.1.1"
+cluster1.port = 4000
+cluster1.user = "root1"
+cluster1.password = ""
 
-db2.host = "10.2.103.78"
-db2.port = 4700
-db2.user = "root"
-db2.password = ""
-
-
-db3.host = "10.2.103.78"
-db3.port = 4700
-db3.user = "root"
-db3.password = ""
+cluster2.host = "196.128.1.2"
+cluster2.port = 4000
+cluster2.user = "root"
+cluster2.password = ""
 
 
-# db4.host = "localhost"
-# db4.port = 4000
-# db4.user = "root"
-# db4.password = ""
+cluster3.host = "196.128.1.4"
+cluster3.port = 4000
+cluster3.user = "root"
+cluster3.password = ""
