@@ -1,0 +1,706 @@
+{
+  "__inputs": [
+    {
+      "name": "DS_MYSQL",
+      "label": "MySQL",
+      "description": "",
+      "type": "datasource",
+      "pluginId": "mysql",
+      "pluginName": "MySQL"
+    }
+  ],
+  "__requires": [
+    {
+      "type": "grafana",
+      "id": "grafana",
+      "name": "Grafana",
+      "version": "7.5.17"
+    },
+    {
+      "type": "datasource",
+      "id": "mysql",
+      "name": "MySQL",
+      "version": "1.0.0"
+    },
+    {
+      "type": "panel",
+      "id": "table",
+      "name": "Table",
+      "version": ""
+    }
+  ],
+  "annotations": {
+    "list": [
+      {
+        "builtIn": 1,
+        "datasource": "-- Grafana --",
+        "enable": true,
+        "hide": true,
+        "iconColor": "rgba(0, 211, 255, 1)",
+        "name": "Annotations & Alerts",
+        "type": "dashboard"
+      }
+    ]
+  },
+  "editable": true,
+  "gnetId": null,
+  "graphTooltip": 0,
+  "id": null,
+  "iteration": 1736930053532,
+  "links": [],
+  "panels": [
+    {
+      "datasource": "${DS_MYSQL}",
+      "fieldConfig": {
+        "defaults": {
+          "color": {
+            "mode": "thresholds"
+          },
+          "custom": {
+            "align": null,
+            "displayMode": "auto",
+            "filterable": false
+          },
+          "mappings": [],
+          "thresholds": {
+            "mode": "percentage",
+            "steps": [
+              {
+                "color": "green",
+                "value": null
+              }
+            ]
+          }
+        },
+        "overrides": [
+          {
+            "matcher": {
+              "id": "byRegexp",
+              "options": "(Digest|Plan_digest)"
+            },
+            "properties": [
+              {
+                "id": "custom.width",
+                "value": 70
+              }
+            ]
+          },
+          {
+            "matcher": {
+              "id": "byName",
+              "options": "Cluster"
+            },
+            "properties": [
+              {
+                "id": "custom.width",
+                "value": 75
+              }
+            ]
+          },
+          {
+            "matcher": {
+              "id": "byRegexp",
+              "options": ".*count"
+            },
+            "properties": [
+              {
+                "id": "custom.width",
+                "value": 80
+              }
+            ]
+          },
+          {
+            "matcher": {
+              "id": "byRegexp",
+              "options": "(Sum_Query_time|Avg_Query_time)"
+            },
+            "properties": [
+              {
+                "id": "custom.width",
+                "value": 140
+              },
+              {
+                "id": "custom.displayMode",
+                "value": "gradient-gauge"
+              },
+              {
+                "id": "color",
+                "value": {
+                  "mode": "continuous-GrYlRd"
+                }
+              },
+              {
+                "id": "min"
+              },
+              {
+                "id": "max"
+              }
+            ]
+          },
+          {
+            "matcher": {
+              "id": "byName",
+              "options": "Err_count"
+            },
+            "properties": [
+              {
+                "id": "custom.displayMode",
+                "value": "color-background"
+              },
+              {
+                "id": "thresholds",
+                "value": {
+                  "mode": "absolute",
+                  "steps": [
+                    {
+                      "color": "rgba(128, 128, 128, 0)",
+                      "value": null
+                    },
+                    {
+                      "color": "dark-red",
+                      "value": 1
+                    }
+                  ]
+                }
+              }
+            ]
+          },
+          {
+            "matcher": {
+              "id": "byRegexp",
+              "options": "(Mem_max|Disk_max)"
+            },
+            "properties": [
+              {
+                "id": "unit",
+                "value": "bytes"
+              },
+              {
+                "id": "custom.width",
+                "value": 90
+              },
+              {
+                "id": "custom.displayMode",
+                "value": "color-background"
+              },
+              {
+                "id": "thresholds",
+                "value": {
+                  "mode": "absolute",
+                  "steps": [
+                    {
+                      "color": "rgba(128, 128, 128, 0)",
+                      "value": null
+                    },
+                    {
+                      "color": "dark-yellow",
+                      "value": 52428800
+                    },
+                    {
+                      "color": "dark-orange",
+                      "value": 104857600
+                    },
+                    {
+                      "color": "dark-red",
+                      "value": 209715200
+                    }
+                  ]
+                }
+              }
+            ]
+          },
+          {
+            "matcher": {
+              "id": "byRegexp",
+              "options": ".*keys"
+            },
+            "properties": [
+              {
+                "id": "custom.width",
+                "value": 130
+              }
+            ]
+          },
+          {
+            "matcher": {
+              "id": "byRegexp",
+              "options": "^(?!Sum_Query_time$|Avg_Query_time$|Min_time$|Max_time$).*_time$"
+            },
+            "properties": [
+              {
+                "id": "custom.width",
+                "value": 132
+              }
+            ]
+          },
+          {
+            "matcher": {
+              "id": "byRegexp",
+              "options": "(Avg_Parse_time|Avg_Compile_time)"
+            },
+            "properties": [
+              {
+                "id": "custom.displayMode",
+                "value": "color-background"
+              },
+              {
+                "id": "thresholds",
+                "value": {
+                  "mode": "absolute",
+                  "steps": [
+                    {
+                      "color": "rgba(128, 128, 128, 0)",
+                      "value": null
+                    },
+                    {
+                      "color": "dark-red",
+                      "value": 1
+                    }
+                  ]
+                }
+              },
+              {
+                "id": "unit",
+                "value": "s"
+              }
+            ]
+          },
+          {
+            "matcher": {
+              "id": "byRegexp",
+              "options": "(Avg_Result_rows|Plan_from_binding)"
+            },
+            "properties": [
+              {
+                "id": "custom.width",
+                "value": 120
+              }
+            ]
+          },
+          {
+            "matcher": {
+              "id": "byName",
+              "options": "Is_internal"
+            },
+            "properties": [
+              {
+                "id": "custom.width",
+                "value": 80
+              },
+              {
+                "id": "custom.displayMode",
+                "value": "color-background"
+              },
+              {
+                "id": "thresholds",
+                "value": {
+                  "mode": "absolute",
+                  "steps": [
+                    {
+                      "color": "green",
+                      "value": null
+                    },
+                    {
+                      "color": "rgba(128, 128, 128, 0)",
+                      "value": 0
+                    },
+                    {
+                      "color": "dark-blue",
+                      "value": 1
+                    }
+                  ]
+                }
+              }
+            ]
+          },
+          {
+            "matcher": {
+              "id": "byName",
+              "options": "Prepared"
+            },
+            "properties": [
+              {
+                "id": "custom.width",
+                "value": 75
+              }
+            ]
+          },
+          {
+            "matcher": {
+              "id": "byName",
+              "options": "Plan_from_cache"
+            },
+            "properties": [
+              {
+                "id": "custom.width",
+                "value": 125
+              }
+            ]
+          },
+          {
+            "matcher": {
+              "id": "byName",
+              "options": "Plan_from_binding"
+            },
+            "properties": [
+              {
+                "id": "custom.displayMode",
+                "value": "color-background"
+              },
+              {
+                "id": "thresholds",
+                "value": {
+                  "mode": "absolute",
+                  "steps": [
+                    {
+                      "color": "green",
+                      "value": null
+                    },
+                    {
+                      "color": "rgba(128, 128, 128, 0)",
+                      "value": 0
+                    },
+                    {
+                      "color": "dark-purple",
+                      "value": 1
+                    }
+                  ]
+                }
+              }
+            ]
+          },
+          {
+            "matcher": {
+              "id": "byName",
+              "options": "DB"
+            },
+            "properties": [
+              {
+                "id": "custom.width",
+                "value": 140
+              }
+            ]
+          }
+        ]
+      },
+      "gridPos": {
+        "h": 31,
+        "w": 24,
+        "x": 0,
+        "y": 0
+      },
+      "id": 2,
+      "options": {
+        "showHeader": true,
+        "sortBy": []
+      },
+      "pluginVersion": "7.5.17",
+      "targets": [
+        {
+          "format": "table",
+          "group": [],
+          "metricColumn": "none",
+          "queryType": "randomWalk",
+          "rawQuery": true,
+          "rawSql": "SELECT\n\tss.*,\n\tsi.Query,\n\tsi.Plan\nFROM\n\t(\n\tSELECT\n\t  s.Cluster,\n\t\ts.Digest,\n\t\ts.Plan_digest,\n\t\tcount(1) Exec_count,\n\t\tcount(1)-sum(s.Succ) Err_count,\n\t\tround(sum(s.Query_time), 4) Sum_Query_time,\n\t\tround(avg(s.Query_time), 4) Avg_Query_time,\n\t\tround(avg(s.Parse_time), 4) Avg_Parse_time,\n\t\tround(avg(s.Preproc_subqueries), 4) Avg_Preproc_subqueries,\n\t\tround(avg(s.Compile_time), 4) Avg_Compile_time,\n\t\tround(avg(s.Write_keys), 4) Avg_Write_keys,\n\t\tround(avg(s.Write_size), 4) Avg_Write_size,\n\t\tround(sum(s.Cop_time), 4) Sum_Cop_time,\n\t\tround(avg(s.Cop_time), 4) Avg_Cop_time,\n\t\tround(avg(s.Request_count), 4) Avg_Request_count,\n\t\tround(avg(s.LockKeys_time), 4) Avg_LockKeys_time,\n\t\tsum(s.Total_keys) Sum_Total_keys,\n\t\tavg(s.Total_keys) Avg_Total_keys,\n\t\tsum(s.Process_keys) Sum_Process_keys,\n\t\tavg(s.Process_keys) Avg_Process_keys,\n\t\tmin(s.`Time`) Min_time,\n\t\tmax(s.`Time`) Max_time,\n\t\tround(max(s.Mem_max)/ 1024 / 1024, 4) Mem_max,\n\t\tround(max(s.Disk_max)/ 1024 / 1024, 4) Disk_max,\n\t\tavg(s.Result_rows) Avg_Result_rows,\n\t\tmax(s.Result_rows) Max_Result_rows,\n\t\tsum(s.Plan_from_binding) Plan_from_binding,\n\t\tsum(s.Is_internal) Is_internal,\n\t\tround(sum(s.Write_sql_response_total), 4) Sum_Write_sql_response_total,\n\t\tsum(s.Prepared) Prepared,\n\t\tsum(s.Plan_from_cache) Plan_from_cache,\n\t\tgroup_concat(DISTINCT s.Resource_group SEPARATOR ',') Resource_group,\n\t\tgroup_concat(DISTINCT s.DB SEPARATOR ',') DB\n\tFROM\n\t\tALL_CLUSTER_SLOW_QUERY s\n\tWHERE\n\t\t$__timeFilter(Time)\n\t\tAND s.cluster IN ($v_cluster)\n\t\tAND s.db in ($v_db)\n\t\tAND s.Is_internal IN ($v_is_internal)\n\tGROUP BY\n\t\ts.cluster,\n\t\ts.digest,\n\t\ts.plan_digest\n\tORDER BY\n\t\t$v_order_by DESC\n\tLIMIT $v_limit) ss\nLEFT JOIN ALL_CLUSTER_SLOW_QUERY_INFO SI ON\n\tss.cluster = si.cluster\n\tAND ss.digest = si.digest\n\tAND ss.plan_digest = si.plan_digest\nORDER BY\nss.$v_order_by DESC;",
+          "refId": "A",
+          "select": [
+            [
+              {
+                "params": [
+                  "Txn_start_ts"
+                ],
+                "type": "column"
+              }
+            ]
+          ],
+          "table": "ALL_CLUSTER_SLOW_QUERY",
+          "timeColumn": "SAMPLE_START_TIME",
+          "timeColumnType": "timestamp",
+          "where": [
+            {
+              "name": "$__timeFilter",
+              "params": [],
+              "type": "macro"
+            }
+          ]
+        }
+      ],
+      "title": "TiDB Slow query summary",
+      "transformations": [
+        {
+          "id": "filterFieldsByName",
+          "options": {
+            "include": {
+              "names": [
+                "Cluster",
+                "Digest",
+                "Plan_digest",
+                "Exec_count",
+                "Err_count",
+                "Sum_Query_time",
+                "Avg_Query_time",
+                "Sum_Total_keys",
+                "Avg_Total_keys",
+                "Sum_Process_keys",
+                "Avg_Process_keys",
+                "Avg_Parse_time",
+                "Avg_Compile_time",
+                "Avg_Write_keys",
+                "Avg_Request_count",
+                "Mem_max",
+                "Disk_max",
+                "Avg_Result_rows",
+                "Plan_from_binding",
+                "Is_internal",
+                "Prepared",
+                "Plan_from_cache",
+                "DB",
+                "Query",
+                "Plan"
+              ]
+            }
+          }
+        },
+        {
+          "id": "organize",
+          "options": {
+            "excludeByName": {},
+            "indexByName": {
+              "Avg_Compile_time": 14,
+              "Avg_Parse_time": 13,
+              "Avg_Process_keys": 12,
+              "Avg_Query_time": 8,
+              "Avg_Request_count": 16,
+              "Avg_Result_rows": 19,
+              "Avg_Total_keys": 10,
+              "Avg_Write_keys": 15,
+              "Cluster": 0,
+              "DB": 4,
+              "Digest": 1,
+              "Disk_max": 18,
+              "Err_count": 6,
+              "Exec_count": 5,
+              "Is_internal": 21,
+              "Mem_max": 17,
+              "Plan": 3,
+              "Plan_digest": 24,
+              "Plan_from_binding": 20,
+              "Plan_from_cache": 23,
+              "Prepared": 22,
+              "Query": 2,
+              "Sum_Process_keys": 11,
+              "Sum_Query_time": 7,
+              "Sum_Total_keys": 9
+            },
+            "renameByName": {}
+          }
+        }
+      ],
+      "type": "table"
+    }
+  ],
+  "schemaVersion": 27,
+  "style": "dark",
+  "tags": [],
+  "templating": {
+    "list": [
+      {
+        "allValue": null,
+        "current": {},
+        "datasource": "${DS_MYSQL}",
+        "definition": "select distinct cluster from test.all_cluster",
+        "description": null,
+        "error": null,
+        "hide": 0,
+        "includeAll": true,
+        "label": "集群",
+        "multi": true,
+        "name": "v_cluster",
+        "options": [],
+        "query": "select distinct cluster from test.all_cluster",
+        "refresh": 1,
+        "regex": "",
+        "skipUrlSync": false,
+        "sort": 1,
+        "tagValuesQuery": "",
+        "tags": [],
+        "tagsQuery": "",
+        "type": "query",
+        "useTags": false
+      },
+      {
+        "allValue": null,
+        "current": {},
+        "datasource": "${DS_MYSQL}",
+        "definition": "select db from all_cluster where cluster in ($v_cluster)",
+        "description": null,
+        "error": null,
+        "hide": 0,
+        "includeAll": true,
+        "label": "数据库",
+        "multi": true,
+        "name": "v_db",
+        "options": [],
+        "query": "select db from all_cluster where cluster in ($v_cluster)",
+        "refresh": 1,
+        "regex": "",
+        "skipUrlSync": false,
+        "sort": 0,
+        "tagValuesQuery": "",
+        "tags": [],
+        "tagsQuery": "",
+        "type": "query",
+        "useTags": false
+      },
+      {
+        "allValue": null,
+        "current": {
+          "selected": true,
+          "text": "累计执行时间",
+          "value": "Sum_Query_time"
+        },
+        "description": null,
+        "error": null,
+        "hide": 0,
+        "includeAll": false,
+        "label": "排序",
+        "multi": false,
+        "name": "v_order_by",
+        "options": [
+          {
+            "selected": true,
+            "text": "累计执行时间",
+            "value": "Sum_Query_time"
+          },
+          {
+            "selected": false,
+            "text": "平均单次执行时间",
+            "value": "Avg_Query_time"
+          },
+          {
+            "selected": false,
+            "text": "执行次数",
+            "value": "Exec_count"
+          },
+          {
+            "selected": false,
+            "text": "累计遇到版本数",
+            "value": "Sum_Total_keys"
+          },
+          {
+            "selected": false,
+            "text": "平均单次遇到版本数",
+            "value": "Sum_Total_keys"
+          },
+          {
+            "selected": false,
+            "text": "最大占用内存",
+            "value": "Mem_max"
+          }
+        ],
+        "query": "累计执行时间 : Sum_Query_time,平均单次执行时间 : Avg_Query_time,执行次数 : Exec_count,累计遇到版本数 : Sum_Total_keys,平均单次遇到版本数 : Sum_Total_keys,最大占用内存 : Mem_max",
+        "queryValue": "",
+        "skipUrlSync": false,
+        "type": "custom"
+      },
+      {
+        "allValue": null,
+        "current": {
+          "selected": true,
+          "text": "10",
+          "value": "10"
+        },
+        "description": null,
+        "error": null,
+        "hide": 0,
+        "includeAll": false,
+        "label": "TOP",
+        "multi": false,
+        "name": "v_limit",
+        "options": [
+          {
+            "selected": true,
+            "text": "10",
+            "value": "10"
+          },
+          {
+            "selected": false,
+            "text": "30",
+            "value": "30"
+          },
+          {
+            "selected": false,
+            "text": "50",
+            "value": "50"
+          },
+          {
+            "selected": false,
+            "text": "70",
+            "value": "70"
+          }
+        ],
+        "query": "10,30,50,70",
+        "queryValue": "",
+        "skipUrlSync": false,
+        "type": "custom"
+      },
+      {
+        "allValue": null,
+        "current": {
+          "selected": true,
+          "text": "业务SQL",
+          "value": "1"
+        },
+        "description": null,
+        "error": null,
+        "hide": 0,
+        "includeAll": true,
+        "label": "SQL类型",
+        "multi": false,
+        "name": "v_is_internal",
+        "options": [
+          {
+            "selected": false,
+            "text": "All",
+            "value": "$__all"
+          },
+          {
+            "selected": false,
+            "text": "内部SQL",
+            "value": "0"
+          },
+          {
+            "selected": true,
+            "text": "业务SQL",
+            "value": "1"
+          }
+        ],
+        "query": "内部SQL : 0,业务SQL : 1",
+        "queryValue": "",
+        "skipUrlSync": false,
+        "type": "custom"
+      }
+    ]
+  },
+  "time": {
+    "from": "now-1h",
+    "to": "now"
+  },
+  "timepicker": {
+    "hidden": false,
+    "refresh_intervals": [
+      "1m",
+      "5m",
+      "15m",
+      "30m",
+      "1h",
+      "2h",
+      "1d"
+    ]
+  },
+  "timezone": "",
+  "title": "TiDB Slow query summary",
+  "uid": "GY0napNNk",
+  "version": 35
+}

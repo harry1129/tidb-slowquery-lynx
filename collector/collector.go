@@ -93,7 +93,8 @@ func CollectClusterinfo(tdbname string, tdb *gorm.DB) {
 }
 
 func CollectSlowlog(tdbname string, tdb *gorm.DB, st time.Time, et time.Time) error {
-	ch := make(chan interface{}, 3)
+	ch := make(chan interface{}, 2)
+	defer close(ch)
 	var wg sync.WaitGroup
 	for i := 0; i < 4; i++ {
 		wg.Add(1)
@@ -110,7 +111,8 @@ func CollectSlowlog(tdbname string, tdb *gorm.DB, st time.Time, et time.Time) er
 
 func CollectSlowlogQuery(tdbname string, tdb *gorm.DB, st time.Time, et time.Time) error {
 
-	ch := make(chan interface{}, 3)
+	ch := make(chan interface{}, 2)
+	defer close(ch)
 	var wg sync.WaitGroup
 
 	for i := 0; i < 4; i++ {
@@ -122,10 +124,9 @@ func CollectSlowlogQuery(tdbname string, tdb *gorm.DB, st time.Time, et time.Tim
 		return err
 	}
 	if slowlogDigests == nil {
-		//这里没关ch
 		return nil
 	}
-	err = getSlowlogQuery(tdbname, db, slowlogDigests, ch)
+	err = getSlowlogQuery(tdbname, tdb, slowlogDigests, ch)
 	if err != nil {
 		return err
 	}
@@ -157,7 +158,7 @@ func getSlowlogQuery(dbname string, tdb *gorm.DB, slowlogDigests *[]*slowlogDige
 		}
 	}
 	slowQuerySQL.WriteString(") ss1) sss1")
-	fmt.Println(slowQuerySQL.String())
+	//fmt.Println(slowQuerySQL.String())
 	sqlDB, err := tdb.DB()
 	if err != nil {
 		return err
